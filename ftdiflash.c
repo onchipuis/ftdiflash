@@ -127,7 +127,9 @@ void set_gpio(int slavesel_b, int creset_b)
 
 	if (slavesel_b) {
 		// ADBUS4 (GPIOL0)
-		gpio |= 0x10;
+		//gpio |= 0x10;
+		// ADBUS3 (TMS/CS)
+		gpio |= 0x08;
 	}
 
 	if (creset_b) {
@@ -137,7 +139,8 @@ void set_gpio(int slavesel_b, int creset_b)
 
 	send_byte(0x80);
 	send_byte(gpio);
-	send_byte(0x93);
+	//send_byte(0x93); // CLK out, MOSI out, MISO in, CS in, GPIOL0 out, GPIOL1 in, GPIOL2 in, GPIOL3 out
+	send_byte(0x8B); // CLK out, MOSI out, MISO in, CS out, GPIOL0 in, GPIOL1 in, GPIOL2 in, GPIOL3 out
 }
 
 void flash_read_id()
